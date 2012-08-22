@@ -1,0 +1,25 @@
+/*
+*   Take imported url from Feeds and put in URL_ALIAS table 	
+*/
+
+/* Gives a visual on what is currently in the tables */
+SELECT entity_id, url
+FROM feeds_item;
+
+SELECT pid, alias
+FROM url_alias;
+
+
+/* Use this to link urls in Feeds table to the URL Alias's */
+
+UPDATE url_alias AS alias, feeds_item AS feeds
+  SET
+    alias.alias = feeds.url
+  WHERE alias.pid = feeds.entity_id;
+  
+  
+/* Need to make the the pID match the source node/#; subtract amount that is needed */
+
+UPDATE url_alias AS alias
+  SET
+    alias.pid = alias.pid - 1;
